@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Only for Real Friends 🤝</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<audio id="bgMusic" src="music.mp3" loop></audio>
+
+<!-- PASSWORD -->
+<div class="screen active" id="screen-password">
+  <h1>Only real friends can open this 🔐</h1>
+  <input type="password" id="passwordInput" placeholder="Enter our code">
+  <button onclick="checkPassword()">Unlock</button>
+</div>
+
+<!-- LEGEND SCREEN -->
+<div class="screen" id="screen-legend">
+  <h1>You found the hidden path 🥚</h1>
+  <p>Not everyone types this word.<br>That already says something.</p>
+  
+  <button onclick="delayedAction()">Click me</button>
+<p id="delayedMsg" style="display:none; margin-top:12px;">
+  Good things take time.
+</p>
+<div id="quiz">
+  <br><p>Do you feel understood?</p>
+  <button onclick="quizAnswer('yes')">Yes</button>
+  <button onclick="quizAnswer('sometimes')">Sometimes</button>
+  <button onclick="quizAnswer('no')">No</button>
+  <p id="quizResult" style="margin-top:15px;"></p>
+  <a href="new/index.html" >
+  <button>Enter Experience</button>
+  </a>
+</div>
+
+</div>
+
+<!-- TAP -->
+<div class="screen" id="screen-tap">
+  <h1>Tap anywhere…</h1>
+</div>
+
+<!-- GIFT -->
+<div class="screen" id="screen-gift">
+  <div class="gift">🎁</div>
+  <p>Tap the gift</p>
+</div>
+
+<!-- LETTER -->
+<div class="screen" id="screen-letter">
+  <!-- VOICE NOTE -->
+<div style="margin-top:20px;">
+  <p>Tap to hear this once 🎧</p>
+  <button onclick="playVoice()">▶ Play Voice Note</button>
+  <audio id="voiceNote" src="voice.mp3"></audio>
+</div>
+
+  <button onclick="randomMemory()">🎲 Random Memory</button>
+<p id="randomText" style="margin-top:12px; display:none;"></p>
+
+  <div class="memory-slider">
+    <div class="memory active">
+      <img src="img1.jpg">
+      <p class="caption">That random evening we laughed for no reason</p>
+    </div>
+    <p id="awarenessText" style="opacity:0; transition:.6s;">
+      Are you still here… or just scrolling?
+    </p>
+    
+    <div class="memory">
+      <img src="img2.jpg">
+      <p class="caption">Late night talks that fixed everything</p>
+    </div>
+  
+    <div class="memory">
+      <img src="img3.jpg">
+      <p class="caption">No photos, still unforgettable</p>
+    </div>
+  
+    <div class="controls">
+      <button onclick="prevMemory()">‹</button>
+      <button onclick="nextMemory()">›</button>
+    </div>
+  </div>
+
+
+  <h2>Dear Friend 🤍</h2>
+
+  <p>
+    From random laughs to <strong>deep talks</strong>,  
+    you stayed. That matters.
+  </p>
+
+  <p class="secret-long">You weren’t supposed to find this 🤫</p>
+  <p id="bonus">Some friendships don’t fade. They evolve 🖤</p>
+  <p id="legendBonus">Some bonds don’t need proof. They just exist.</p>
+
+  <button onclick="unlockSecret()">Unlock Secret 🔐</button>
+  <p id="secret">No matter what… I’ve got your back 🤝</p>
+
+  <button onclick="nextScreen('screen-end')">Continue</button>
+</div>
+
+<!-- END -->
+<div class="screen" id="screen-end">
+  <h1>One last thing…</h1>
+  <p>Friendship isn’t about everyday talks.<br>It’s about knowing you’re never alone.</p>
+  <button onclick="restart()">Experience Again 🔁</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+  
+  body{
+    height:100vh;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family: 'Poppins', sans-serif;
+    overflow:hidden;
+  }
+  
+  .scene{
+    text-align:center;
+  }
+  
+  .hidden{
+    display:none;
+  }
+  
+  .mystery-text,
+  .choice-text{
+    color:white;
+    font-size:clamp(18px,5vw,28px);
+    opacity:0;
+    animation: fadeIn 2s forwards;
+  }
+  
+  @keyframes fadeIn{
+    to{opacity:1;}
+  }
+  
+  .buttons{
+    margin-top:30px;
+    display:flex;
+    gap:20px;
+    justify-content:center;
+  }
+  
+  button{
+    padding:12px 28px;
+    background:transparent;
+    border:1px solid white;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+  }
+  
+  button:hover{
+    background:white;
+    color:black;
+  }
+  
+  /* COUNTDOWN */
+  #countdownScreen{
+    position:fixed;
+    inset:0;
+    background:black;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+  }
+  
+  #countNumber{
+    font-size:6rem;
+    color:white;
+    animation: pop 1s ease-in-out;
+  }
+  
+  @keyframes pop{
+    0%{transform:scale(0.5);opacity:0;}
+    50%{transform:scale(1.2);opacity:1;}
+    100%{transform:scale(1);opacity:1;}
+  }
+  

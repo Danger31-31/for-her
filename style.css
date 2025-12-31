@@ -1,0 +1,155 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Poppins,sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+  overflow:hidden;
+  text-align:center;
+  overflow-y: auto;
+}
+
+/* 🌊 BREATHING BACKGROUND */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+  z-index:-1;
+  animation:breathe 18s ease-in-out infinite;
+}
+
+@keyframes breathe{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.05);}
+}
+
+.screen{
+  display:none;
+  padding:30px;
+  max-width:420px;
+}
+
+.screen.active{
+  display:block;
+}
+
+input{
+  padding:12px;
+  width:100%;
+  margin-top:15px;
+  border:none;
+  border-radius:8px;
+}
+
+button{
+  margin-top:20px;
+  padding:12px 22px;
+  border:none;
+  border-radius:25px;
+  background:#fff;
+  color:#000;
+  cursor:pointer;
+}
+
+.gift{
+  font-size:80px;
+  animation:bounce 1.5s infinite;
+  cursor:pointer;
+}
+
+@keyframes bounce{
+  50%{transform:translateY(-10px);}
+}
+
+/* 🌌 LEGEND MODE */
+#screen-legend{
+  background:radial-gradient(circle at top,#2b1055,#000);
+  color:#e6d9ff;
+}
+
+#screen-legend h1,
+#screen-legend p{
+  opacity:0;
+  animation:legendFade 1.5s ease forwards;
+}
+
+#screen-legend p{
+  animation-delay:1s;
+}
+
+@keyframes legendFade{
+  to{opacity:1;}
+}
+
+/* ✨ TAP GLOW */
+.tap-glow{
+  position:fixed;
+  width:120px;
+  height:120px;
+  background:radial-gradient(circle,rgba(255,255,255,.35),transparent 70%);
+  border-radius:50%;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  animation:glow .6s ease-out forwards;
+}
+
+@keyframes glow{
+  from{opacity:1;transform:translate(-50%,-50%) scale(.6);}
+  to{opacity:0;transform:translate(-50%,-50%) scale(1.5);}
+}
+
+/* SECRETS */
+.secret-long,
+#bonus,
+#legendBonus,
+#secret{
+  display:none;
+  margin-top:15px;
+}
+.memory-slider{
+  margin-top:30px;
+}
+
+.memory{
+  display:none;
+  animation:fade 0.8s ease;
+}
+
+.memory.active{
+  display:block;
+}
+
+.memory img{
+  width:100%;
+  border-radius:16px;
+  cursor:pointer;
+}
+
+.caption{
+  display:none;
+  margin-top:10px;
+  font-style:italic;
+  opacity:0.85;
+}
+
+@keyframes fade{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+.controls{
+  margin-top:12px;
+}
+
+.controls button{
+  background:rgba(255,255,255,.2);
+  color:#fff;
+}

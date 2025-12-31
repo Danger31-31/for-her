@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Celebration</title>
+<style>
+  body {
+    margin:0;
+    overflow:hidden;
+    background:#000;
+    font-family:sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color:white;
+  }
+
+  canvas {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1;
+  }
+
+  /* Cake */
+  #cake {
+    position:absolute;
+    top:-300px;
+    display:none;
+    width:200px;
+    height:220px;
+    z-index:2;
+  }
+
+  .layer {
+    width: 140px;
+    height: 50px;
+    margin: 0 auto;
+    border-radius: 15px;
+    background: linear-gradient(to top, #f4c2c2, #f8bcbc);
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    margin-bottom: -10px;
+  }
+
+  .icing {
+    position:absolute;
+    top:-10px;
+    left:0;
+    width:100%;
+    height:15px;
+    background: #fff5ee;
+    border-radius: 50%;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  .candle {
+    width:12px;
+    height:40px;
+    background: yellow;
+    position:absolute;
+    top:-40px;
+    left:50%;
+    transform:translateX(-50%);
+    border-radius:5px;
+    animation:flicker 0.2s infinite alternate;
+    box-shadow: 0 0 10px rgba(255,255,0,0.7);
+  }
+
+  @keyframes drop {
+    0% { top:-300px; }
+    60% { top:50%; }
+    80% { top:45%; }
+    100% { top:50%; }
+  }
+
+  @keyframes flicker {
+    0% { transform:translateX(-50%) scaleY(1);}
+    100% { transform:translateX(-50%) scaleY(1.3);}
+  }
+
+  /* Sky Message */
+  #skyText {
+    font-size:4rem;
+    text-align:center;
+    display:none;
+    color: gold;
+    text-shadow: 0 0 5px yellow, 0 0 10px orange, 0 0 20px red;
+    z-index:2;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<div id="cake">
+  <div class="layer"><div class="icing"></div></div>
+  <div class="layer"><div class="icing"></div></div>
+  <div class="layer"><div class="icing"></div></div>
+  <div class="candle"></div>
+</div>
+
+<div id="skyText">Happy Celebration!</div>
+
+<script>
+// ---------- Canvas Fireworks ----------
+const canvas = document.getElementById('fireworks');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let fireworks = [];
+
+class Firework {
+  constructor(x,y,color){
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.particles = [];
+    for(let i=0;i<40;i++){
+      const angle = Math.random()*2*Math.PI;
+      const speed = Math.random()*5 + 2;
+      this.particles.push({
+        x:this.x,
+        y:this.y,
+        vx: Math.cos(angle)*speed,
+        vy: Math.sin(angle)*speed,
+        alpha:1
+      });
+    }
+  }
+  update(){
+    this.particles.forEach(p=>{
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.05;
+      p.alpha -= 0.02;
+    });
+    this.particles = this.particles.filter(p=>p.alpha>0);
+  }
+  draw(){
+    this.particles.forEach(p=>{
+      ctx.fillStyle = `rgba(${this.color},${p.alpha})`;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,2,0,Math.PI*2);
+      ctx.fill();
+    });
+  }
+}
+
+function animate(){
+  ctx.fillStyle = "rgba(0,0,0,0.2)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  fireworks.forEach(f=>{
+    f.update();
+    f.draw();
+  });
+  fireworks = fireworks.filter(f=>f.particles.length>0);
+  requestAnimationFrame(animate);
+}
+
+// ---------- Start Fireworks ----------
+function startFireworks(){
+  const colors = ["255,0,0","0,255,0","0,0,255","255,255,0","255,0,255","0,255,255"];
+  const interval = setInterval(()=>{
+    const x = Math.random()*canvas.width;
+    const y = Math.random()*canvas.height/2;
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    fireworks.push(new Firework(x,y,color));
+  },100);
+
+  setTimeout(()=>{
+    clearInterval(interval);
+    showCake();
+  },5000); // 5 seconds
+}
+
+// ---------- Show Cake ----------
+function showCake(){
+  const cake = document.getElementById('cake');
+  cake.style.display = "block";
+  cake.style.animation = "drop 2s forwards";
+
+  // After 3 sec of cake appearing, show message
+  setTimeout(showSkyText, 3000);
+}
+
+// ---------- Show Sky Text ----------
+function showSkyText(){
+  const skyText = document.getElementById('skyText');
+  skyText.style.display = "block";
+
+  // Light fireworks around text
+  setInterval(()=>{
+    const colors = ["255,255,0","255,128,0","128,0,255"];
+    const x = Math.random()*canvas.width;
+    const y = Math.random()*canvas.height/2;
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    fireworks.push(new Firework(x,y,color));
+  },300);
+}
+
+// Start
+animate();
+startFireworks();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mystery</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Scene 1 -->
+  <div id="scene1" class="scene hidden">
+    <p class="mystery-text">This wasn’t made for everyone.</p>
+  </div>
+
+  <!-- Scene 2 -->
+  <div id="scene2" class="scene hidden">
+    <p class="choice-text">You can still leave.</p>
+    <div class="buttons">
+      <button onclick="startCountdown()">Leave</button>
+      <button onclick="startCountdown()">Stay</button>
+    </div>
+  </div>
+
+  <!-- Countdown -->
+  <div id="countdownScreen">
+    <div id="countNumber">3</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
